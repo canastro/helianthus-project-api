@@ -1,6 +1,7 @@
 var Q = require('q');
 var mongoose = require('mongoose');
 var config = require('../config'); // get our config file
+var argv = require('yargs').argv;
 
 //get our models
 var CategoryModel = require('../app/models/category');
@@ -30,86 +31,111 @@ function dropCollection(collection) {
     return deferred.promise;
 }
 
-function init() {
+function clearDatabase() {
 
     var collections = ['categories', 'tags', 'users', 'setups', 'photos'];
     var promises = [];
 
     collections.forEach(function (collection) {
-        console.log('DROPPING: ', collection);
+        //console.log('DROPPING: ', collection);
         promises.push(dropCollection(collection));
     });
 
     return Q.all(promises);
 }
 
+
+function createCategory(category) {
+    var deferred = Q.defer();
+
+    CategoryModel.create(category, function (err, item) {
+        deferred.resolve();
+    });
+
+    return deferred.promise;
+}
+
 function seedCategories() {
 
     var promises = [];
 
-    console.log('-----------------------------------------------');
-    console.log('CREATE CATEGORIES');
-    console.log('-----------------------------------------------');
+    //console.log('-----------------------------------------------');
+    //console.log('CREATE CATEGORIES');
+    //console.log('-----------------------------------------------');
     categories.forEach(function (category) {
-        promises.push(
-            CategoryModel.create(category, function (err, item) {
-                console.log(err, item);
-            })
-        );
+        promises.push(createCategory(category));
     });
 
     return Q.all(promises);
+}
+
+function createTag(tag) {
+    var deferred = Q.defer();
+
+    TagModel.create(tag, function (err, item) {
+        deferred.resolve();
+    });
+
+    return deferred.promise;
 }
 
 function seedTags() {
 
     var promises = [];
 
-    console.log('-----------------------------------------------');
-    console.log('CREATE TAGS');
-    console.log('-----------------------------------------------');
+    //console.log('-----------------------------------------------');
+    //console.log('CREATE TAGS');
+    //console.log('-----------------------------------------------');
     tags.forEach(function (tag) {
-        promises.push(
-            TagModel.create(tag, function (err, item) {
-                console.log(err, item);
-            })
-        );
+        promises.push(createTag(tag));
     });
 
     return Q.all(promises);
+}
+
+function createUser(user) {
+    var deferred = Q.defer();
+
+    UserModel.create(user, function (err, item) {
+        deferred.resolve();
+    });
+
+    return deferred.promise;
 }
 
 function seedUsers() {
 
     var promises = [];
 
-    console.log('-----------------------------------------------');
-    console.log('CREATE USERS');
-    console.log('-----------------------------------------------');
+    //console.log('-----------------------------------------------');
+    //console.log('CREATE USERS');
+    //console.log('-----------------------------------------------');
     users.forEach(function (user) {
-        promises.push(
-            UserModel.create(user, function (err, item) {
-                console.log(err, item);
-            })
-        );
+        promises.push(createUser(user));
     });
 
     return promises;
+}
+
+function createSetup(setup) {
+    var deferred = Q.defer();
+
+    SetupModel.create(setup, function (err, item) {
+        deferred.resolve();
+    });
+
+    return deferred.promise;
 }
 
 function seedSetups() {
 
     var promises = [];
 
-    console.log('-----------------------------------------------');
-    console.log('CREATE SETUPS');
-    console.log('-----------------------------------------------');
+    //console.log('-----------------------------------------------');
+    //console.log('CREATE SETUPS');
+    //console.log('-----------------------------------------------');
     setups.forEach(function (setup) {
-        promises.push(
-            SetupModel.create(setup, function (err, item) {
-                console.log(err, item);
-            })
-        );
+        promises.push(createSetup(setup));
     });
 
     return Q.all(promises);
@@ -117,9 +143,9 @@ function seedSetups() {
 
 function seedPhotos() {
 
-    console.log('-----------------------------------------------');
-    console.log('CREATE PHOTOS');
-    console.log('-----------------------------------------------');
+    //console.log('-----------------------------------------------');
+    //console.log('CREATE PHOTOS');
+    //console.log('-----------------------------------------------');
 
     photos.forEach(function (photo) {
 
@@ -146,19 +172,24 @@ function seedPhotos() {
                 photo.tags = [result[1], result[2]];
                 photo.setup = result[3];
 
+                console.log(arguments);
+
                 PhotoModel.create(photo, function (err, item) {
-                    console.log(err, item);
+                    //console.log(err, item);
                 });
             })
             .catch(function () {
-                console.log(arguments);
+                //console.log(arguments);
             });
     });
 }
 
-init()
-    .then(seedCategories)
-    .then(seedTags)
-    .then(seedUsers)
-    .then(seedSetups)
-    .then(seedPhotos)
+if (argv.clear) {
+    clearDatabase();
+} else {
+    seedCategories()
+        .then(seedTags)
+        .then(seedUsers)
+        .then(seedSetups)
+        .then(seedPhotos)
+}

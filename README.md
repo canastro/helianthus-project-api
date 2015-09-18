@@ -56,6 +56,10 @@
     - https://github.com/rkirov/youtube-app
     - http://www.sitepoint.com/introduction-futuristic-new-router-angularjs/
 
+# Seed
+    - Clear database: node seeds/seed.js --clear
+    - Seed: node seeds/seed.js
+
 # Run
 
     gulp
