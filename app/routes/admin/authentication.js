@@ -24,24 +24,33 @@ router.post('/authenticate', function(req, res) {
         }
 
         // check if password matches
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
-            res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-            return;
-        }
+        user.comparePassword(req.body.password, function(err, isMatch) {
 
-        // if user is found and password is right
-        // create a token
-        var token = jwt.sign(user, config.secret, {
-            expiresInMinutes: 1440 // expires in 24 hours
+            var token;
+
+            if (err) {
+                throw err;
+            }
+
+            if (!isMatch) {
+                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+                return;
+            }
+
+            // if user is found and password is right
+            // create a token
+            token = jwt.sign(user, config.secret, {
+                expiresInMinutes: 1440 // expires in 24 hours
+            });
+
+            // return the information including token as JSON
+            res.json({
+                success: true,
+                message: 'Enjoy your token!',
+                token: token
+            });
         });
-
-        // return the information including token as JSON
-        res.json({
-            success: true,
-            message: 'Enjoy your token!',
-            token: token
-        });
-
+        
     });
 });
 
