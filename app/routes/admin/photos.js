@@ -13,8 +13,19 @@ router.route('/photos')
         photo.name = req.body.name;
         photo.title = req.body.title;
         photo.description = req.body.description;
-        photo.category = req.body.category;
-        photo.tags = req.body.tags;
+        photo.story = req.body.story;
+
+        if (req.body.setup) {
+            photo.setup = req.body.setup;
+        }
+
+        if (req.body.category) {
+            photo.category = req.body.category;
+        }
+
+        if (req.body.tags) {
+            photo.tags = req.body.tags;
+        }
 
         // save the photo and check for errors
         photo.save(function(err) {

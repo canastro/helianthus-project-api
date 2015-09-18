@@ -16,6 +16,10 @@
         - http://tympanus.net/codrops/category/blueprints/
         - Pre-loader: http://tympanus.net/Tutorials/SVGLoaderGSAP/index6.html
         - Off-canvas menu: http://tympanus.net/codrops/2014/09/16/off-canvas-menu-effects/
+        - http://tympanus.net/Development/HoverEffectIdeas/
+        - http://tympanus.net/Tutorials/SamsungGrid/
+        - http://tympanus.net/Development/ScatteredPolaroidsGallery/
+        - http://tympanus.net/Development/CreativeLoadingEffects/
 
 # Features
 
@@ -46,12 +50,44 @@
     - ExpressJS
     - MongoDB
 
+# Tutorials
+    - http://www.sitepoint.com/getting-started-with-angular-2-using-typescript/
+    - https://github.com/sitepoint-editors/PinYourAchievements-Angular2-TypeScript
+    - https://github.com/rkirov/youtube-app
+    - http://www.sitepoint.com/introduction-futuristic-new-router-angularjs/
 
 # Run
 
-    From the directory that contains index.html:
+    gulp
 
-    npm install -g http-server  # Or sudo npm install -g http-server
-    http-server                 # Creates a server at localhost:8080
+# To do
 
-    In a browser, visit localhost:8080/index.html
+    - Gallery
+        - FE: Paginate
+
+    - Photo:
+        - BE: Update model
+            - short description
+            - photography setup
+            - history (long description)
+            - number of likes (?)
+            - album
+        - BE: Update POST
+        - FE: Update upload photo form
+        - FE: Back button on photo/:id
+        - FE: Inline-comments (load, save, show)
+        - FE: Share on facebook
+
+    - Inline-Comments:
+        - BE: Create model
+        - BE: Create route to POST, DELETE
+
+    - Photography-Setups:
+        - BE: Create model
+        - BE: Create route to POST, GET, DELETE
+
+    - Album
+        - BE: Create model
+            - name
+            - description
+        - BE: Create Routes to POST, GET, DELETE, PUT

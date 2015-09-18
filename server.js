@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 // use morgan to log requests to the console
 app.use(morgan('dev'));
 app.use('/api', require('./app/routes'));
+app.use('/static', express.static('public'));
 
 // START THE SERVER
 // =============================================================================
