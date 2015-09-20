@@ -20,6 +20,7 @@
         - http://tympanus.net/Tutorials/SamsungGrid/
         - http://tympanus.net/Development/ScatteredPolaroidsGallery/
         - http://tympanus.net/Development/CreativeLoadingEffects/
+        - Modals: http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/
 
 # Features
 
@@ -70,28 +71,16 @@
         - FE: Paginate
 
     - Photo:
-        - BE: Update model
-            - short description
-            - photography setup
-            - history (long description)
-            - number of likes (?)
-            - album
-        - BE: Update POST
         - FE: Update upload photo form
         - FE: Back button on photo/:id
         - FE: Inline-comments (load, save, show)
         - FE: Share on facebook
 
     - Inline-Comments:
-        - BE: Create model
         - BE: Create route to POST, DELETE
 
     - Photography-Setups:
-        - BE: Create model
         - BE: Create route to POST, GET, DELETE
 
-    - Album
-        - BE: Create model
-            - name
-            - description
+    - Album:
         - BE: Create Routes to POST, GET, DELETE, PUT

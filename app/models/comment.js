@@ -1,9 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
-var Category = require('./category');
-var Tag = require('./tag');
-var Setup = require('./setup');
+var Photo = require('./photo');
 
 var CommentSchema = new Schema({
     name: String,
