@@ -7,6 +7,7 @@ var SetupSchema = new Schema({
     focal_length: String,
     aperture: String,
     exposure_time: String,
+    flash: Boolean,
     iso: Number
 });
 

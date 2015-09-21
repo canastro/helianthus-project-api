@@ -21,6 +21,7 @@
         - http://tympanus.net/Development/ScatteredPolaroidsGallery/
         - http://tympanus.net/Development/CreativeLoadingEffects/
         - Modals: http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/
+        - Dashboard: https://github.com/IronSummitMedia/startbootstrap-sb-admin-2
 
 # Features
 
@@ -57,30 +58,43 @@
     - https://github.com/rkirov/youtube-app
     - http://www.sitepoint.com/introduction-futuristic-new-router-angularjs/
 
-# Seed
-    - Clear database: node seeds/seed.js --clear
-    - Seed: node seeds/seed.js
-
 # Run
 
     gulp
 
 # To do
 
+    - Settings like http://tympanus.net/Development/ButtonComponentMorph/index7.html
+
     - Gallery
+        - Use packery or isotope
         - FE: Paginate
+        - Layout: the browsing of photos (group/filter by category/tag/name/setup)
 
     - Photo:
+        - FE: Next/previous photo
+        - FE: Add stats (views / likes / comments (?))
+        - FE: Open to fullscreen;
         - FE: Update upload photo form
         - FE: Back button on photo/:id
-        - FE: Inline-comments (load, save, show)
         - FE: Share on facebook
+        - BE/FE: On post new photo ask if wants to share to facebook, instagram, twitter, etc.
+        - Click on category/tag and show a list of filtered photos
+        - BE: Automatically add watermark to uploaded photos
+        - BE: Load comments
+        - BE: Automatically create thumbnails to uploaded photos
 
     - Inline-Comments:
-        - BE: Create route to POST, DELETE
+        - BE: Create route to DELETE
+        - FE: Limit text
+        - FE: Add name / email to comments
+        - FE: Create a inline form
 
     - Photography-Setups:
         - BE: Create route to POST, GET, DELETE
 
-    - Album:
+    - Album
         - BE: Create Routes to POST, GET, DELETE, PUT
+
+    - Admin
+        - FE: Create dashboard like interface
