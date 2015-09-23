@@ -6,7 +6,7 @@ var Photo = require('./photo');
 var AlbumSchema = new Schema({
     name: String,
     title: String,
-    shortDescription: String,
+    description: String,
     story: String,
     photos: [{ type: ObjectId, ref: 'Photo' }]
 });
