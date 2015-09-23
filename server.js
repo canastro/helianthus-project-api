@@ -13,7 +13,9 @@ var config = require('./config'); // get our config file
 // configuration =========
 // =======================
 var port = process.env.PORT || 8080; // set our port
+
 mongoose.connect(config.database); // connect to database
+
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));

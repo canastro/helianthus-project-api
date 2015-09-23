@@ -33,6 +33,7 @@ router.route('/photos')
             .limit(to)
             .populate('category')
             .populate('tags')
+            .populate('setup')
             .exec(function(err, photos) {
 
                 var hasMore = false;
@@ -122,5 +123,29 @@ router.route('/photo/:photo_id/comment')
         });
     });
 
+router.route('/photo/:photo_id/like')
+
+    .put(function (req, res) {
+
+        console.log(req.connection.remoteAddress);
+
+        Photo.findById(req.params.photo_id)
+            .exec(function (err, photo) {
+
+                if (err) {
+                    res.send(err);
+                }
+
+                photo.likes++;
+
+                photo.save(function(err) {
+                    if (err) {
+                        res.send(err);
+                    }
+
+                    res.json({ message: 'Like added!' });
+                });
+            });
+    });
 
 module.exports = router;

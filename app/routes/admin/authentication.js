@@ -15,12 +15,15 @@ router.post('/authenticate', function(req, res) {
     }, function(err, user) {
 
         if (err) {
-            throw err;
+            return res.status(500).json({
+                err: err
+            });
         }
 
         if (!user) {
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
-            return;
+            return res.status(404).json({
+                err: 'Authentication failed. User not found.'
+            });
         }
 
         // check if password matches
@@ -29,12 +32,15 @@ router.post('/authenticate', function(req, res) {
             var token;
 
             if (err) {
-                throw err;
+                return res.status(500).json({
+                    err: err
+                });
             }
 
             if (!isMatch) {
-                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-                return;
+                return res.status(401).json({
+                    err: 'Authentication failed. Wrong password.'
+                });
             }
 
             // if user is found and password is right
@@ -44,13 +50,13 @@ router.post('/authenticate', function(req, res) {
             });
 
             // return the information including token as JSON
-            res.json({
+            res.status(200).json({
                 success: true,
                 message: 'Enjoy your token!',
                 token: token
             });
         });
-        
+
     });
 });
 

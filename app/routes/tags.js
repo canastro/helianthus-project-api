@@ -8,12 +8,12 @@ router.route('/tags')
 
     // get all the bears (accessed at GET http://localhost:8080/api/bears)
     .get(function(req, res) {
-        Tag.find(function(err, bears) {
+        Tag.find(function(err, albums) {
             if (err) {
                 res.send(err);
             }
 
-            res.json(bears);
+            res.json(albums);
         });
     });
 
@@ -24,12 +24,12 @@ router.route('/tag/:tag_id')
 
     // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
     .get(function(req, res) {
-        Tag.findById(req.params.tag_id, function(err, bear) {
+        Tag.findById(req.params.tag_id, function(err, album) {
             if (err) {
                 res.send(err);
             }
 
-            res.json(bear);
+            res.json(album);
         });
     });
 

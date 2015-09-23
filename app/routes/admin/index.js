@@ -7,5 +7,6 @@ router.use(authorize);
 router.use(require('./categories'));
 router.use(require('./tags'));
 router.use(require('./photos'));
+router.use(require('./albums'));
 
 module.exports = router;

@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Category = require('../../models/category');
 
+var mongoose = require('mongoose');
+var Promise = require("bluebird");
+Promise.promisifyAll(mongoose);
+
 // on routes that end in /categories
 // ----------------------------------------------------
 router.route('/categories')
@@ -13,14 +17,17 @@ router.route('/categories')
         category.name = req.body.name;  // set the categories name (comes from the request)
 
         // save the category and check for errors
-        category.save(function(err) {
-            if (err) {
-                res.send(err);
-            }
-
-            res.json({ message: 'Category created!' });
-        });
-
+        Promise.resolve(category.save())
+            .then(function () {
+                res.status(201).json({
+                    message: 'Category created!'
+                });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            });
     });
 
 router.route('/categories/:category_id')
@@ -28,24 +35,28 @@ router.route('/categories/:category_id')
     .put(function(req, res) {
 
         // use our category model to find the category we want
-        Category.findById(req.params.category_id, function(err, category) {
+        Promise.resolve(Category.findById(req.params.category_id).exec())
+            .then(function (category) {
 
-            if (err) {
-                res.send(err);
-            }
-
-            category.name = req.body.name;  // update the categories info
-
-            // save the category
-            category.save(function(err) {
-                if (err) {
-                    res.send(err);
+                if (!category) {
+                    return res.status(404).json({
+                        err: 'Category not found'
+                    });
                 }
 
-                res.json({ message: 'Category updated!' });
-            });
+                // update the categories info
+                category.name = req.body.name;
 
-        });
+                return category.save();
+            })
+            .then(function () {
+                res.status(200).json({ message: 'Category updated!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            });
     });
 
 module.exports = router;

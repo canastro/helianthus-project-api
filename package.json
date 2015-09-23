@@ -3,11 +3,12 @@
   "main": "server.js",
   "dependencies": {
     "bcrypt": "^0.8.5",
+    "bluebird": "^2.10.1",
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
     "extend": "^3.0.0",
     "jsonwebtoken": "^5.0.5",
-    "mongoose": "~3.6.13",
+    "mongoose": "^4.1.8",
     "morgan": "^1.6.1"
   },
   "devDependencies": {
