@@ -36,7 +36,7 @@ function clearDatabase() {
     var collections = ['categories', 'tags', 'users', 'setups', 'photos'];
     var promises = [];
 
-    collections.forEach(function (collection) {
+    collections.forEach((collection) => {
         //console.log('DROPPING: ', collection);
         promises.push(dropCollection(collection));
     });
@@ -62,7 +62,7 @@ function seedCategories() {
     //console.log('-----------------------------------------------');
     //console.log('CREATE CATEGORIES');
     //console.log('-----------------------------------------------');
-    categories.forEach(function (category) {
+    categories.forEach((category) => {
         promises.push(createCategory(category));
     });
 
@@ -86,7 +86,7 @@ function seedTags() {
     //console.log('-----------------------------------------------');
     //console.log('CREATE TAGS');
     //console.log('-----------------------------------------------');
-    tags.forEach(function (tag) {
+    tags.forEach((tag) => {
         promises.push(createTag(tag));
     });
 
@@ -110,7 +110,7 @@ function seedUsers() {
     //console.log('-----------------------------------------------');
     //console.log('CREATE USERS');
     //console.log('-----------------------------------------------');
-    users.forEach(function (user) {
+    users.forEach((user) => {
         promises.push(createUser(user));
     });
 
@@ -134,7 +134,7 @@ function seedSetups() {
     //console.log('-----------------------------------------------');
     //console.log('CREATE SETUPS');
     //console.log('-----------------------------------------------');
-    setups.forEach(function (setup) {
+    setups.forEach((setup) => {
         promises.push(createSetup(setup));
     });
 
@@ -147,7 +147,7 @@ function seedPhotos() {
     //console.log('CREATE PHOTOS');
     //console.log('-----------------------------------------------');
 
-    photos.forEach(function (photo) {
+    photos.forEach((photo) => {
 
         var promises = [];
 
@@ -155,7 +155,7 @@ function seedPhotos() {
             CategoryModel.findOne(photo.category).exec()
         );
 
-        photo.tags.forEach(function (item) {
+        photo.tags.forEach((item) => {
             promises.push(
                 TagModel.findOne(item).exec()
             );
