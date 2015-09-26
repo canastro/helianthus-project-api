@@ -2,10 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Category = require('../../models/category');
 
-var mongoose = require('mongoose');
-var Promise = require("bluebird");
-Promise.promisifyAll(mongoose);
-
 // on routes that end in /categories
 // ----------------------------------------------------
 router.route('/categories')

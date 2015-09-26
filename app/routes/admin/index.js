@@ -8,5 +8,6 @@ router.use(require('./categories'));
 router.use(require('./tags'));
 router.use(require('./photos'));
 router.use(require('./albums'));
+router.use(require('./setups'));
 
 module.exports = router;

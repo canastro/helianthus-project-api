@@ -13,13 +13,17 @@ router.route('/tags')
         tag.name = req.body.name;  // set the tags name (comes from the request)
 
         // save the tag and check for errors
-        tag.save(function(err) {
-            if (err) {
-                res.send(err);
-            }
-
-            res.json({ message: 'Tag created!' });
-        });
+        Promise.resolve(tag.save())
+            .then(function () {
+                res.status(201).json({
+                    message: 'Tag created!'
+                });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            });
 
     });
 
@@ -27,25 +31,30 @@ router.route('/tags/:tag_id')
      // update the tag with this id (accessed at PUT http://localhost:8080/api/tags/:tag_id)
     .put(function(req, res) {
 
-        // use our tag model to find the tag we want
-        Tag.findById(req.params.tag_id, function(err, tag) {
 
-            if (err) {
-                res.send(err);
-            }
+        // use our category model to find the category we want
+        Promise.resolve(Tag.findById(req.params.tag_id).exec())
+            .then(function (tag) {
 
-            tag.name = req.body.name;  // update the tags info
-
-            // save the tag
-            tag.save(function(err) {
-                if (err) {
-                    res.send(err);
+                if (!tag) {
+                    return res.status(404).json({
+                        err: 'Tag not found'
+                    });
                 }
 
-                res.json({ message: 'Tag updated!' });
-            });
+                // update the categories info
+                tag.name = req.body.name;
 
-        });
+                return tag.save();
+            })
+            .then(function () {
+                res.status(200).json({ message: 'Tag updated!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            });
     });
 
 module.exports = router;

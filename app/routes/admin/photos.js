@@ -28,13 +28,15 @@ router.route('/photos')
         }
 
         // save the photo and check for errors
-        photo.save(function(err) {
-            if (err) {
-                res.send(err);
-            }
-
-            res.json({ message: 'Photo created!' });
-        });
+        Promise.resolve(photo.save())
+            .then(function () {
+                res.status(201).json({ message: 'Photo created!' });
+            })
+            .catch(function(err) {
+                res.status(500).json({
+                    err: err
+                });
+            });
 
     });
 
@@ -43,24 +45,23 @@ router.route('/photos/:photo_id')
     .put(function(req, res) {
 
         // use our photo model to find the photo we want
-        Photo.findById(req.params.photo_id, function(err, photo) {
+        Photo.findById(req.params.photo_id)
+            .then(function (photo) {
 
-            if (err) {
-                res.send(err);
-            }
+                // update the photos info
+                photo.name = req.body.name;
 
-            photo.name = req.body.name;  // update the photos info
-
-            // save the photo
-            photo.save(function(err) {
-                if (err) {
-                    res.send(err);
-                }
-
-                res.json({ message: 'Photo updated!' });
+                // save the photo
+                return Promise.resolve(photo.save());
+            })
+            .then(function () {
+                res.status(200).json({ message: 'Photo updated!' });
+            })
+            .catch(function(err, photo) {
+                res.status(500).json({
+                    err: err
+                });
             });
-
-        });
     });
 
 module.exports = router;
