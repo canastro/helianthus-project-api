@@ -53,6 +53,18 @@ router.route('/categories/:category_id')
                     err: err
                 });
             });
+    })
+
+    .delete(function (req, res) {
+        Promise.resolve(Category.remove({_id: req.params.category_id}).exec())
+            .then(function () {
+                res.status(204).json({ message: 'Category removed!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            })
     });
 
 module.exports = router;

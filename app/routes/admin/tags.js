@@ -55,6 +55,18 @@ router.route('/tags/:tag_id')
                     err: err
                 });
             });
+    })
+
+    .delete(function (req, res) {
+        Promise.resolve(Tag.remove({_id: req.params.tag_id}).exec())
+            .then(function () {
+                res.status(204).json({ message: 'Tag removed!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            })
     });
 
 module.exports = router;
