@@ -62,6 +62,18 @@ router.route('/photos/:photo_id')
                     err: err
                 });
             });
+    })
+
+    .delete(function (req, res) {
+        Promise.resolve(Photo.remove({_id: req.params.photo_id}).exec())
+            .then(function () {
+                res.status(204).json({ message: 'Photo removed!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            })
     });
 
 module.exports = router;
