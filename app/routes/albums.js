@@ -19,7 +19,7 @@ router.route('/albums')
 
 // on routes that end in /albums/:album_id
 // ----------------------------------------------------
-router.route('/album/:album_id')
+router.route('/albums/:album_id')
 
     .get(function(req, res) {
         Album.findById(req.params.album_id, function(err, album) {

@@ -20,7 +20,7 @@ router.route('/categories')
 
 // on routes that end in /categories/:category_id
 // ----------------------------------------------------
-router.route('/category/:category_id')
+router.route('/categories/:category_id')
 
     // get the category with that id (accessed at GET http://localhost:8080/api/categories/:category_id)
     .get(function(req, res) {

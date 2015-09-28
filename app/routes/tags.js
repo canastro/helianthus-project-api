@@ -20,7 +20,7 @@ router.route('/tags')
 
 // on routes that end in /bears/:bear_id
 // ----------------------------------------------------
-router.route('/tag/:tag_id')
+router.route('/tags/:tag_id')
 
     // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
     .get(function(req, res) {

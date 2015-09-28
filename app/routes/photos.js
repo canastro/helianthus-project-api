@@ -71,7 +71,7 @@ router.route('/photos/count')
 
 // on routes that end in /photos/:photo_id
 // ----------------------------------------------------
-router.route('/photo/:photo_id')
+router.route('/photos/:photo_id')
 
     //TODO: load comments?
     // get the photo with that id (accessed at GET http://localhost:8080/api/photos/:photo_id)
@@ -89,7 +89,7 @@ router.route('/photo/:photo_id')
             });
     });
 
-router.route('/photo/:photo_id/comment')
+router.route('/photos/:photo_id/comment')
 
     // get the photo with that id (accessed at GET http://localhost:8080/api/photos/:photo_id)
     .get(function(req, res) {
@@ -106,12 +106,14 @@ router.route('/photo/:photo_id/comment')
 
     .post(function (req, res) {
 
+        console.log(req.body);
+
         var comment = new Comment();
         comment.name = req.body.name;
         comment.message = req.body.message;
         comment.positionX = req.body.positionX;
         comment.positionY = req.body.positionY;
-        comment.photo = mongoose.Types.ObjectId(req.body.photo._id);
+        comment.photo = mongoose.Types.ObjectId(req.params.photo_id);
 
         // save the comment and check for errors
         comment.save(function(err) {
