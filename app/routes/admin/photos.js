@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Photo = require('../../models/photo');
+var Comment = require('../../models/comment');
 
 // on routes that end in /photos
 // ----------------------------------------------------
@@ -68,6 +69,19 @@ router.route('/photos/:photo_id')
         Promise.resolve(Photo.remove({_id: req.params.photo_id}).exec())
             .then(function () {
                 res.status(204).json({ message: 'Photo removed!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            })
+    });
+
+router.route('/photos/:photo_id/comments/:comment_id')
+    .delete(function (req, res) {
+        Promise.resolve(Comment.remove({_id: req.params.comment_id}).exec())
+            .then(function () {
+                res.status(204).json({ message: 'Comment removed!' });
             })
             .catch(function (err) {
                 res.status(500).json({
