@@ -111,8 +111,8 @@ router.route('/photos/:photo_id/comment')
         var comment = new Comment();
         comment.name = req.body.name;
         comment.message = req.body.message;
-        comment.positionX = req.body.positionX;
-        comment.positionY = req.body.positionY;
+        comment.left = req.body.left;
+        comment.top = req.body.top;
         comment.photo = mongoose.Types.ObjectId(req.params.photo_id);
 
         // save the comment and check for errors
