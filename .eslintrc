@@ -1,0 +1,36 @@
+{
+    "rules": {
+        "indent": [
+            2,
+            4
+        ],
+        "quotes": [
+            2,
+            "single"
+        ],
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "strict": [
+            2,
+            "global"
+        ],
+        "no-console": 0
+    },
+    "env": {
+        "node": true
+    },
+    "globals": {
+        "angular": true,
+        "moment": true,
+        "expect": true,
+        "inject": true,
+        "_": true
+    },
+    "extends": "eslint:recommended"
+}
