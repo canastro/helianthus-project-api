@@ -2,6 +2,7 @@
   "name": "helianthus-project-api",
   "main": "server.js",
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "bcrypt": "^0.8.5",
     "bluebird": "^2.10.1",
     "body-parser": "~1.0.1",

@@ -5,6 +5,7 @@ var multiparty = require('multiparty');
 var express = require('express');
 var fs = Promise.promisifyAll(require('fs'));
 var router = express.Router();
+var AdmZip = Promise.promisifyAll(require('adm-zip'));
 var Photo = require('../../models/photo');
 var Comment = require('../../models/comment');
 
@@ -102,6 +103,48 @@ router.route('/photos/:photo_id')
                     err: err
                 });
             });
+    });
+
+router.route('/photos/uploadMulti')
+    .post(function (req, res) {
+        var form = new multiparty.Form();
+
+        form.parse(req, function(err, fields, files) {
+
+            var tempFile = './temp/' + files.images[0].originalFilename;
+            var newPath = './public/';
+
+            fs.readFileAsync(files.images[0].path)
+                .then(function (data) {
+                    return fs.writeFileAsync(tempFile, data);
+                })
+                .then(function () {
+                    return new Promise(function (resolve, reject) {
+                        var zip = new AdmZip(tempFile);
+                        zip.extractAllToAsync(newPath, true, function (err) {
+                            if (err) {
+                                return reject(err);
+                            }
+
+                            return resolve();
+                        });
+                    });
+                })
+                .then(function () {
+                    return fs.unlinkSync(tempFile);
+                })
+                .then(function () {
+                    res.status(200).json({
+                        message: 'Photos uploaded'
+                    });
+                })
+                .catch(function (err) {
+                    res.status(500).json({
+                        err: err
+                    });
+                });
+        });
+
     });
 
 router.route('/photos/:photo_id/comments/:comment_id')
