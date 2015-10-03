@@ -58,6 +58,46 @@ router.route('/albums/:album_id')
 
             });
 
+    })
+
+    .delete(function (req, res) {
+        Promise.resolve(Album.remove({_id: req.params.album_id}).exec())
+            .then(function () {
+                res.status(204).json({ message: 'Album removed!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            })
     });
+
+router.route('/albums/:album_id/toggleActivateState')
+    .put(function(req, res) {
+
+        Promise.resolve(Album.findById(req.params.album_id).exec())
+            .then(function (album) {
+
+                if (!album) {
+                    return res.status(404).json({
+                        err: 'Album not found'
+                    });
+                }
+
+                // update the categories info
+                album.isActive = !album.isActive;
+
+                return album.save();
+            })
+            .then(function () {
+                res.status(200).json({ message: 'Album updated!' });
+            })
+            .catch(function (err) {
+                res.status(500).json({
+                    err: err
+                });
+            });
+
+    })
 
 module.exports = router;
