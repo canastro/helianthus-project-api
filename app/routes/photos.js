@@ -18,8 +18,14 @@ router.route('/photos')
         var to;
         var options = {
             per_page: 12,
-            page: 1
+            page: 1,
         };
+
+        var query = {};
+
+        if (req.query.show_hidden !== 'true') {
+            query.isActive = true;
+        }
 
         options = extend(options, req.query);
         options.per_page = Number(options.per_page);
@@ -28,7 +34,9 @@ router.route('/photos')
         from = (options.page - 1) * options.per_page;
         to = options.per_page + 1;
 
-        Photo.find()
+        console.log(req.query);
+
+        Photo.find(query)
             .skip(from)
             .limit(to)
             .populate('category')
