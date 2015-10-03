@@ -17,7 +17,8 @@ var PhotoSchema = new Schema({
     local: { type: ObjectId, ref: 'Local' },
     category: { type: ObjectId, ref: 'Category' },
     setup: { type: ObjectId, ref: 'Setup' },
-    tags: [{ type: ObjectId, ref: 'Tag' }]
+    tags: [{ type: ObjectId, ref: 'Tag' }],
+    isActive: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Photo', PhotoSchema);
